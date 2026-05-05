@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Plan de tratamiento de Carla</title>
+
+  <meta property="og:title" content="Carla, tu sonrisa empieza aquí" />
+  <meta property="og:description" content="Tu plan de tratamiento personalizado, explicado paso a paso." />
+  <meta property="og:image" content="https://jalonso986.github.io/patient-case-converter-demo/patient-case-converter-demo/01%20-%20Preview%20Virtual%20Card%20Whatsapp.png" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    body {
+      margin: 0;
+      background: #f4f4f4;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 430px;
+      background: white;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen {
+      display: none;
+      position: relative;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .screen-img {
+      width: 100%;
+      display: block;
+    }
+
+    .hotspot {
+      position: absolute;
+      cursor: pointer;
+      background: rgba(255,255,255,0);
+      z-index: 10;
+    }
+
+    .back {
+      position: fixed;
+      top: 12px;
+      left: calc(50% - 205px);
+      z-index: 50;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 430px) {
+      .back { left: 12px; }
+    }
+
+    .detail-view {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: white;
+      z-index: 40;
+      overflow: auto;
+      touch-action: pan-x pan-y pinch-zoom;
+    }
+
+    .detail-view.active {
+      display: block;
+    }
+
+    .detail-img {
+      width: 1200px;
+      max-width: none;
+      display: block;
+      margin: 60px auto 20px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- VISTA INICIAL -->
+    <section id="home" class="screen active">
+      <img class="screen-img" src="02 - Vista inicial.png" />
+
+      <!-- Resolver dudas por WhatsApp -->
+      <a class="hotspot"
+         style="left: 50%; top: 15%; width: 45%; height: 8%;"
+         href="https://wa.me/"
+         target="_blank"></a>
+
+      <!-- Ver plan paso a paso -->
+      <div class="hotspot"
+           style="left: 50%; top: 23%; width: 45%; height: 8%;"
+           onclick="showScreen('timeline')"></div>
+
+      <!-- Ver coste desglosado -->
+      <div class="hotspot"
+           style="left: 50%; top: 31%; width: 45%; height: 8%;"
+           onclick="showScreen('breakdown')"></div>
+
+      <!-- Expandir desglose -->
+      <div class="hotspot"
+           style="left: 0%; top: 59%; width: 100%; height: 25%;"
+           onclick="showScreen('breakdown')"></div>
+
+      <!-- Expandir timeline -->
+      <div class="hotspot"
+           style="left: 0%; top: 84%; width: 100%; height: 16%;"
+           onclick="showScreen('timeline')"></div>
+    </section>
+
+    <!-- DESGLOSE -->
+    <section id="breakdown" class="screen">
+      <button class="back" onclick="showScreen('home')">← Volver</button>
+
+      <div style="position:relative;">
+        <img class="screen-img" src="03 - Plan desglose 1.png" />
+
+        <div class="hotspot" style="left:0%; top:38%; width:100%; height:9%;" onclick="openDetail('multidisciplinar.png')"></div>
+        <div class="hotspot" style="left:0%; top:48%; width:100%; height:9%;" onclick="openDetail('gingivitis.png')"></div>
+        <div class="hotspot" style="left:0%; top:58%; width:100%; height:9%;" onclick="openDetail('sarpe.png')"></div>
+        <div class="hotspot" style="left:0%; top:68%; width:100%; height:9%;" onclick="openDetail('alineadores.png')"></div>
+        <div class="hotspot" style="left:0%; top:78%; width:100%; height:9%;" onclick="openDetail('carillas.png')"></div>
+      </div>
+
+      <div style="position:relative;">
+        <img class="screen-img" src="04 - Plan desglose 2.png" />
+
+        <div class="hotspot" style="left:0%; top:8%; width:100%; height:12%;" onclick="openDetail('carillas.png')"></div>
+        <div class="hotspot" style="left:0%; top:21%; width:100%; height:12%;" onclick="openDetail('carillas.png')"></div>
+        <div class="hotspot" style="left:0%; top:34%; width:100%; height:12%;" onclick="openDetail('carillas.png')"></div>
+        <div class="hotspot" style="left:0%; top:47%; width:100%; height:12%;" onclick="openDetail('ferula.png')"></div>
+        <div class="hotspot" style="left:0%; top:60%; width:100%; height:12%;" onclick="openDetail('essix.png')"></div>
+      </div>
+
+      <div style="position:relative;">
+        <img class="screen-img" src="05 - Plan desglose 3.png" />
+
+        <div class="hotspot" style="left:0%; top:10%; width:100%; height:15%;" onclick="openDetail('carillas.png')"></div>
+        <div class="hotspot" style="left:0%; top:25%; width:100%; height:15%;" onclick="openDetail('carillas.png')"></div>
+        <div class="hotspot" style="left:0%; top:40%; width:100%; height:15%;" onclick="openDetail('carillas.png')"></div>
+        <div class="hotspot" style="left:0%; top:55%; width:100%; height:15%;" onclick="openDetail('ferula.png')"></div>
+        <div class="hotspot" style="left:0%; top:70%; width:100%; height:15%;" onclick="openDetail('essix.png')"></div>
+        <div class="hotspot" style="left:0%; top:84%; width:100%; height:15%;" onclick="openDetail('retainer.png')"></div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="screen">
+      <button class="back" onclick="showScreen('home')">← Volver</button>
+      <img class="screen-img" src="06 - Plan tratamiento.png" />
+    </section>
+
+  </div>
+
+  <!-- DETALLE EXPANDIDO CON ZOOM -->
+  <div id="detail" class="detail-view">
+    <button class="back" onclick="closeDetail()">← Volver</button>
+    <img id="detail-img" class="detail-img" src="" />
+  </div>
+
+  <script>
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function openDetail(src) {
+      document.getElementById('detail-img').src = src;
+      document.getElementById('detail').classList.add('active');
+    }
+
+    function closeDetail() {
+      document.getElementById('detail').classList.remove('active');
+      document.getElementById('detail-img').src = '';
+    }
+  </script>
+</body>
+</html>
