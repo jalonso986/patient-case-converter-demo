@@ -27,21 +27,175 @@
       width: 100%;
       max-width: 414px;
       min-height: 100vh;
-      background: #fff;
-      position: relative;
+      background: white;
       overflow-x: hidden;
+      position: relative;
     }
 
-    .screen { display: none; position: relative; width: 100%; min-height: 100vh; background: #fff; }
+    .screen { display: none; width: 100%; background: white; }
     .screen.active { display: block; }
-
-    .screen-img { width: 100%; display: block; }
 
     .hotspot {
       position: absolute;
       z-index: 20;
       cursor: pointer;
       background: rgba(255,255,255,0);
+    }
+
+    .home-frame {
+      position: relative;
+      width: 100%;
+      height: 896px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .home-frame img {
+      width: 100%;
+      display: block;
+    }
+
+    /* DESGLOSE */
+    #breakdown.active {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .bd-top {
+      position: relative;
+      height: 362px;
+      overflow: hidden;
+      background: white;
+      flex: 0 0 auto;
+    }
+
+    .bd-top img {
+      width: 100%;
+      display: block;
+    }
+
+    .bd-column-header {
+      display: grid;
+      grid-template-columns: 50px 104px 35px 62px 55px 64px 14px;
+      padding: 4px 8px 3px 8px;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #cfcfcf;
+      background: white;
+      color: #555;
+      font-size: 13px;
+      flex: 0 0 auto;
+    }
+
+    .bd-column-header .concepto {
+      grid-column: 1 / span 2;
+      padding-left: 8px;
+      text-align: left;
+    }
+
+    .bd-column-header div {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .bd-column-header .pieza {
+      text-align: center;
+    }
+
+    .bd-list {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 0 8px 20px 8px;
+      background: white;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 50px 104px 35px 62px 55px 64px 14px;
+      align-items: center;
+      min-height: 76px;
+      border-bottom: 1px solid #cfcfcf;
+      background: white;
+      cursor: pointer;
+    }
+
+    .item.warning {
+      background: #ffe9bd;
+      border-radius: 8px;
+      border-bottom: none;
+      margin: 5px 0;
+    }
+
+    .sprite {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background-image: url("03 - Plan desglose.png");
+      background-size: 414px auto;
+      background-repeat: no-repeat;
+      border: 1px solid #222;
+      margin-left: 2px;
+    }
+
+    .i-multi { background-position: -28px -399px; }
+    .i-gingi { background-position: -28px -473px; }
+    .i-sarpe { background-position: -28px -548px; }
+    .i-invis { background-position: -28px -626px; }
+    .i-cari { background-position: -28px -706px; }
+    .i-ferula { background-position: -28px -1176px; }
+    .i-essix { background-position: -28px -1252px; }
+    .i-retainer { background-position: -28px -1328px; }
+
+    .name {
+      font-size: 13.5px;
+      font-weight: 700;
+      line-height: 1.08;
+      color: #222;
+    }
+
+    .desc {
+      font-size: 10.5px;
+      line-height: 1.15;
+      color: #0a2b4d;
+      margin-top: 4px;
+    }
+
+    .warning .desc { color: #f06f2c; }
+
+    .badge {
+      display: inline-block;
+      background: #ffd993;
+      color: #f08a00;
+      font-size: 8px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 8px;
+      margin-bottom: 3px;
+    }
+
+    .cell {
+      font-size: 13.5px;
+      color: #222;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .piece { text-align: center; }
+
+    .total {
+      font-size: 13.5px;
+      font-weight: 700;
+      text-align: right;
+      white-space: nowrap;
+      color: #222;
+    }
+
+    .chev {
+      font-size: 22px;
+      color: #222;
+      text-align: center;
     }
 
     .back {
@@ -63,150 +217,16 @@
       .back { left: 10px; }
     }
 
-    .home-frame {
-      position: relative;
-      width: 100%;
-      height: 896px;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .home-frame img {
+    .screen-img {
       width: 100%;
       display: block;
-    }
-
-    /* DESGLOSE */
-    .breakdown-screen {
-      height: 100vh;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .bd-fixed {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      max-width: 414px;
-      height: 395px;
-      overflow: hidden;
-      background: #fff;
-      z-index: 40;
-      border-bottom: 1px solid #d0d0d0;
-    }
-
-    .bd-fixed img {
-      width: 100%;
-      display: block;
-    }
-
-    .bd-list {
-      position: fixed;
-      top: 395px;
-      bottom: 0;
-      width: 100%;
-      max-width: 414px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      background: #fff;
-      padding: 0 8px 20px 8px;
-    }
-
-    .item {
-      display: grid;
-      grid-template-columns: 50px 116px 34px 56px 52px 52px 18px;
-      align-items: center;
-      min-height: 78px;
-      border-bottom: 1px solid #cfcfcf;
-      background: #fff;
-      cursor: pointer;
-      column-gap: 0;
-    }
-
-    .item.warning {
-      background: #ffe9bd;
-      border-radius: 8px;
-      margin: 4px 0;
-      border-bottom: none;
-    }
-
-    .sprite {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background-image: url("03 - Plan desglose.png");
-      background-size: 414px 1800px;
-      background-repeat: no-repeat;
-      border: 1px solid #222;
-      margin-left: 2px;
-    }
-
-    .i-multi { background-position: -28px -401px; }
-    .i-gingi { background-position: -27px -475px; }
-    .i-sarpe { background-position: -27px -554px; }
-    .i-invis { background-position: -27px -636px; }
-    .i-cari  { background-position: -27px -714px; }
-    .i-ferula { background-position: -27px -1192px; }
-    .i-essix { background-position: -27px -1268px; }
-    .i-retainer { background-position: -27px -1345px; }
-
-    .name {
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.08;
-      color: #222;
-    }
-
-    .desc {
-      font-size: 11px;
-      font-weight: 400;
-      line-height: 1.15;
-      color: #0a2b4d;
-      margin-top: 4px;
-    }
-
-    .warning .desc { color: #f06f2c; }
-
-    .badge {
-      display: inline-block;
-      background: #ffd993;
-      color: #f08a00;
-      font-size: 8px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 8px;
-      margin-bottom: 3px;
-    }
-
-    .cell {
-      font-size: 14px;
-      color: #222;
-      white-space: nowrap;
-      text-align: right;
-    }
-
-    .piece {
-      text-align: center;
-    }
-
-    .total {
-      font-size: 14px;
-      font-weight: 700;
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    .chev {
-      font-size: 24px;
-      color: #222;
-      text-align: center;
     }
 
     .detail-view {
       display: none;
       position: fixed;
       inset: 0;
-      background: #fff;
+      background: white;
       z-index: 80;
       overflow: auto;
       touch-action: pan-x pan-y pinch-zoom;
@@ -240,49 +260,44 @@
       </div>
     </section>
 
-    <section id="breakdown" class="screen breakdown-screen">
-      <button class="back" onclick="goBack()">← Volver</button>
-
-      <div class="bd-fixed">
+    <section id="breakdown" class="screen">
+      <div class="bd-top">
         <img src="03 - Plan desglose.png" />
+        <div class="hotspot" style="left:0; top:0; width:90px; height:45px;" onclick="goBack()"></div>
+      </div>
+
+      <div class="bd-column-header">
+        <div class="concepto">Concepto</div>
+        <div class="pieza">Pieza</div>
+        <div>Importe</div>
+        <div>Desc.</div>
+        <div>Total</div>
+        <div></div>
       </div>
 
       <div class="bd-list">
 
         <div class="item" onclick="openDetail('multidisciplinar.png')">
           <div class="sprite i-multi"></div>
-          <div>
-            <div class="name">Estudio<br>interdisciplinar</div>
-            <div class="desc">Adquisición de imágenes, diagnóstico y plan tratamiento</div>
-          </div>
+          <div><div class="name">Estudio<br>interdisciplinar</div><div class="desc">Adquisición de imágenes, diagnóstico y plan tratamiento</div></div>
           <div class="cell piece"></div><div class="cell">250,00</div><div class="cell">-12,50</div><div class="total">237,50</div><div class="chev">›</div>
         </div>
 
         <div class="item warning" onclick="openDetail('gingivitis.png')">
           <div class="sprite i-gingi"></div>
-          <div>
-            <div class="badge">⚠ ATENCIÓN</div>
-            <div class="name">Tratamiento<br>gingivitis</div>
-            <div class="desc">Puede evolucionar a periodontitis si no se trata a tiempo</div>
-          </div>
+          <div><div class="badge">⚠ ATENCIÓN</div><div class="name">Tratamiento<br>gingivitis</div><div class="desc">Puede evolucionar a periodontitis si no se trata a tiempo</div></div>
           <div class="cell piece"></div><div class="cell">210,00</div><div class="cell">-10,50</div><div class="total">199,50</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('sarpe.png')">
           <div class="sprite i-sarpe"></div>
-          <div>
-            <div class="name">Tratamiento<br>funcional<br>complejo</div>
-            <div class="desc">Mejora de la mordida y función</div>
-          </div>
+          <div><div class="name">Tratamiento<br>funcional<br>complejo</div><div class="desc">Mejora de la mordida y función</div></div>
           <div class="cell piece"></div><div class="cell">3.000,00</div><div class="cell">-150,00</div><div class="total">2.850,00</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('alineadores.png')">
           <div class="sprite i-invis"></div>
-          <div>
-            <div class="name">Ortodoncia<br>Invisalign™</div>
-            <div class="desc">Alinea tus dientes de forma discreta y efectiva</div>
-          </div>
+          <div><div class="name">Ortodoncia<br>Invisalign™</div><div class="desc">Alinea tus dientes de forma discreta y efectiva</div></div>
           <div class="cell piece"></div><div class="cell">4.390,00</div><div class="cell">-219,50</div><div class="total">4.170,50</div><div class="chev">›</div>
         </div>
 
@@ -379,7 +394,9 @@
       if (clear) document.getElementById("detail-img").src = "";
     }
 
-    function goBack() { history.back(); }
+    function goBack() {
+      history.back();
+    }
 
     window.addEventListener("popstate", function(event) {
       const state = event.state || { screen: "home" };
