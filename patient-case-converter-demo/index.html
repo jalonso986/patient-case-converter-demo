@@ -11,14 +11,16 @@
   <meta property="og:type" content="website" />
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
     html, body {
-      background: #efefef;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
       font-family: Arial, Helvetica, sans-serif;
-      color: #1b1b1b;
       display: flex;
       justify-content: center;
+      overscroll-behavior: none;
     }
 
     .app {
@@ -26,19 +28,24 @@
       max-width: 414px;
       min-height: 100vh;
       background: #fff;
-      overflow-x: hidden;
       position: relative;
+      overflow-x: hidden;
     }
 
     .screen {
+      display: none;
+      position: relative;
       width: 100%;
       min-height: 100vh;
-      display: none;
       background: #fff;
-      position: relative;
     }
 
     .screen.active { display: block; }
+
+    .screen-img {
+      width: 100%;
+      display: block;
+    }
 
     .hotspot {
       position: absolute;
@@ -47,6 +54,26 @@
       background: rgba(255,255,255,0);
     }
 
+    .back {
+      position: fixed;
+      top: 10px;
+      left: calc(50% - 197px);
+      z-index: 100;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid #ddd;
+      border-radius: 18px;
+      padding: 7px 12px;
+      font-size: 14px;
+      color: #111;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    @media (max-width: 414px) {
+      .back { left: 10px; }
+    }
+
+    /* HOME */
     .home-frame {
       position: relative;
       width: 100%;
@@ -60,7 +87,8 @@
       display: block;
     }
 
-    #desglose.active {
+    /* DESGLOSE */
+    #breakdown.active {
       display: flex;
       flex-direction: column;
       height: 100vh;
@@ -68,98 +96,107 @@
       background: #fff;
     }
 
-    .top-fixed {
-      flex: 0 0 362px;
-      height: 362px;
+    .bd-top {
+      flex: 0 0 360px;
+      height: 360px;
       overflow: hidden;
       background: #fff;
     }
 
-    .top-fixed img {
+    .bd-top img {
       width: 100%;
       display: block;
     }
 
-    .native-header {
+    .bd-column-header {
       display: grid;
-      grid-template-columns: 2.15fr 0.65fr 0.9fr 0.8fr 0.9fr;
-      padding: 8px 14px 7px 14px;
-      font-size: 15px;
-      color: #666;
-      border-top: 1px solid #d0d0d0;
+      grid-template-columns: 56px 112px 34px 62px 54px 58px 18px;
+      padding: 4px 8px 4px 8px;
+      border-top: 1px solid #ddd;
       border-bottom: 1px solid #cfcfcf;
       background: #fff;
+      color: #555;
+      font-size: 13px;
       flex: 0 0 auto;
     }
 
-    .native-header div {
-      text-align: center;
+    .bd-column-header .concepto {
+      grid-column: 1 / span 2;
+      padding-left: 12px;
+      text-align: left;
+    }
+
+    .bd-column-header div {
+      text-align: right;
       white-space: nowrap;
     }
 
-    .native-header div:first-child { text-align: left; }
+    .bd-column-header .pieza {
+      text-align: center;
+    }
 
-    .list-scroll {
+    .bd-list {
       flex: 1 1 auto;
       overflow-y: auto;
       overflow-x: hidden;
+      padding: 0 8px 20px 8px;
       background: #fff;
-      padding: 0 10px 28px 10px;
     }
 
-    .row {
+    .item {
       display: grid;
-      grid-template-columns: 2.15fr 0.65fr 0.9fr 0.8fr 0.9fr;
+      grid-template-columns: 56px 112px 34px 62px 54px 58px 18px;
       align-items: center;
       min-height: 78px;
-      padding: 9px 8px 9px 10px;
       border-bottom: 1px solid #cfcfcf;
       background: #fff;
       cursor: pointer;
+      column-gap: 0;
     }
 
-    .row.warn {
+    .item.warning {
       background: #ffe9bd;
-      border-radius: 12px;
-      margin: 8px 0;
+      border-radius: 8px;
+      margin: 5px 0;
       border-bottom: none;
     }
 
-    .concept {
-      display: flex;
-      gap: 11px;
-      align-items: center;
-      min-width: 0;
-    }
-
-    .icon {
+    .sprite {
       width: 46px;
       height: 46px;
       border-radius: 50%;
-      object-fit: cover;
-      object-position: center;
+      background-image: url("03 - Plan desglose.png");
+      background-size: 414px auto;
+      background-repeat: no-repeat;
       border: 1px solid #222;
-      flex: 0 0 auto;
-      display: block;
+      margin-left: 8px;
+      overflow: hidden;
     }
 
-    .concept-text { min-width: 0; }
+    .i-multi    { background-position: -26px -398px; }
+    .i-gingi    { background-position: -26px -473px; }
+    .i-sarpe    { background-position: -26px -551px; }
+    .i-invis    { background-position: -26px -630px; }
+    .i-cari     { background-position: -26px -708px; }
+    .i-ferula   { background-position: -26px -1184px; }
+    .i-essix    { background-position: -26px -1261px; }
+    .i-retainer { background-position: -26px -1338px; }
 
-    .title {
+    .name {
+      font-size: 13.5px;
       font-weight: 700;
-      font-size: 15px;
       line-height: 1.08;
       color: #222;
     }
 
     .desc {
-      margin-top: 5px;
-      font-size: 11.5px;
-      line-height: 1.18;
-      color: #23354b;
+      font-size: 10.5px;
+      line-height: 1.15;
+      color: #0a2b4d;
+      margin-top: 4px;
     }
 
-    .row.warn .desc { color: #d57b43; }
+    .warning .desc { color: #f06f2c; }
 
     .badge {
       display: inline-block;
@@ -167,48 +204,35 @@
       color: #f08a00;
       font-size: 8px;
       font-weight: 700;
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: 8px;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .cell {
-      text-align: center;
-      font-size: 14px;
+      font-size: 13.5px;
       color: #222;
+      text-align: right;
       white-space: nowrap;
     }
 
+    .piece { text-align: center; }
+
     .total {
+      font-size: 13.5px;
       font-weight: 700;
       text-align: right;
-      padding-right: 4px;
+      white-space: nowrap;
+      color: #222;
     }
 
-    .screen-img {
-      width: 100%;
-      display: block;
+    .chev {
+      font-size: 22px;
+      color: #222;
+      text-align: center;
     }
 
-    .back-btn {
-      position: fixed;
-      top: 12px;
-      left: calc(50% - 197px);
-      z-index: 100;
-      background: rgba(255,255,255,0.96);
-      border: 1px solid #ddd;
-      border-radius: 28px;
-      padding: 9px 16px;
-      font-size: 18px;
-      color: #111;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-
-    @media (max-width: 414px) {
-      .back-btn { left: 12px; }
-    }
-
+    /* DETAIL */
     .detail-view {
       display: none;
       position: fixed;
@@ -225,7 +249,7 @@
       width: 100%;
       max-width: none;
       display: block;
-      margin-top: 58px;
+      margin-top: 50px;
     }
   </style>
 </head>
@@ -233,170 +257,268 @@
 <body>
   <div class="app">
 
+    <!-- 02 HOME -->
     <section id="home" class="screen active">
       <div class="home-frame">
         <img src="02 - Vista inicial.png" />
 
         <a class="hotspot" style="left:50%; top:13.5%; width:47%; height:7%;" href="https://wa.me/" target="_blank"></a>
         <div class="hotspot" style="left:50%; top:22%; width:47%; height:7%;" onclick="showScreen('timeline')"></div>
-        <div class="hotspot" style="left:50%; top:30.5%; width:47%; height:7%;" onclick="showScreen('desglose')"></div>
-        <div class="hotspot" style="left:0%; top:57%; width:100%; height:20%;" onclick="showScreen('desglose')"></div>
-        <div class="hotspot" style="left:55%; top:59%; width:42%; height:5%;" onclick="showScreen('desglose')"></div>
+        <div class="hotspot" style="left:50%; top:30.5%; width:47%; height:7%;" onclick="showScreen('breakdown')"></div>
+
+        <div class="hotspot" style="left:0%; top:57%; width:100%; height:20%;" onclick="showScreen('breakdown')"></div>
+        <div class="hotspot" style="left:55%; top:59%; width:42%; height:5%;" onclick="showScreen('breakdown')"></div>
+
         <div class="hotspot" style="left:0%; top:78%; width:100%; height:20%;" onclick="showScreen('timeline')"></div>
         <div class="hotspot" style="left:55%; top:79%; width:42%; height:5%;" onclick="showScreen('timeline')"></div>
       </div>
     </section>
 
-    <section id="desglose" class="screen">
-      <button class="back-btn" onclick="goHome()">← Volver</button>
+    <!-- 03 DESGLOSE -->
+    <section id="breakdown" class="screen">
+      <button class="back" onclick="goBack()">← Volver</button>
 
-      <div class="top-fixed">
+      <div class="bd-top">
         <img src="03 - Plan desglose.png" />
       </div>
 
-      <div class="native-header">
-        <div>Concepto</div>
-        <div>Pieza</div>
+      <div class="bd-column-header">
+        <div class="concepto">Concepto</div>
+        <div class="pieza">Pieza</div>
         <div>Importe</div>
         <div>Desc.</div>
         <div>Total</div>
+        <div></div>
       </div>
 
-      <div class="list-scroll">
+      <div class="bd-list">
 
-        <div class="row" onclick="openDetail('multidisciplinar.png')">
-          <div class="concept"><img class="icon" src="multidisciplinar.png" /><div class="concept-text"><div class="title">Estudio interdisciplinar</div><div class="desc">Adquisición de imágenes, diagnóstico y plan tratamiento</div></div></div>
-          <div class="cell"></div><div class="cell">250,00</div><div class="cell">-12,50</div><div class="cell total">237,50 ›</div>
+        <div class="item" onclick="openDetail('multidisciplinar.png')">
+          <div class="sprite i-multi"></div>
+          <div>
+            <div class="name">Estudio<br>interdisciplinar</div>
+            <div class="desc">Adquisición de imágenes, diagnóstico y plan tratamiento</div>
+          </div>
+          <div class="cell piece"></div>
+          <div class="cell">250,00</div>
+          <div class="cell">-12,50</div>
+          <div class="total">237,50</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row warn" onclick="openDetail('gingivitis.png')">
-          <div class="concept"><img class="icon" src="gingivitis.png" /><div class="concept-text"><div class="badge">⚠ ATENCIÓN</div><div class="title">Tratamiento gingivitis</div><div class="desc">Puede evolucionar a periodontitis si no se trata a tiempo</div></div></div>
-          <div class="cell"></div><div class="cell">210,00</div><div class="cell">-10,50</div><div class="cell total">199,50 ›</div>
+        <div class="item warning" onclick="openDetail('gingivitis.png')">
+          <div class="sprite i-gingi"></div>
+          <div>
+            <div class="badge">⚠ ATENCIÓN</div>
+            <div class="name">Tratamiento<br>gingivitis</div>
+            <div class="desc">Puede evolucionar a periodontitis si no se trata a tiempo</div>
+          </div>
+          <div class="cell piece"></div>
+          <div class="cell">210,00</div>
+          <div class="cell">-10,50</div>
+          <div class="total">199,50</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('sarpe.png')">
-          <div class="concept"><img class="icon" src="sarpe.png" /><div class="concept-text"><div class="title">Tratamiento funcional complejo</div><div class="desc">Mejora de la mordida y función</div></div></div>
-          <div class="cell"></div><div class="cell">3.000,00</div><div class="cell">-150,00</div><div class="cell total">2.850,00 ›</div>
+        <div class="item" onclick="openDetail('sarpe.png')">
+          <div class="sprite i-sarpe"></div>
+          <div>
+            <div class="name">Tratamiento<br>funcional<br>complejo</div>
+            <div class="desc">Mejora de la mordida y función</div>
+          </div>
+          <div class="cell piece"></div>
+          <div class="cell">3.000,00</div>
+          <div class="cell">-150,00</div>
+          <div class="total">2.850,00</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('alineadores.png')">
-          <div class="concept"><img class="icon" src="alineadores.png" /><div class="concept-text"><div class="title">Ortodoncia Invisalign™</div><div class="desc">Alinea tus dientes de forma discreta y efectiva</div></div></div>
-          <div class="cell"></div><div class="cell">4.390,00</div><div class="cell">-219,50</div><div class="cell total">4.170,50 ›</div>
+        <div class="item" onclick="openDetail('alineadores.png')">
+          <div class="sprite i-invis"></div>
+          <div>
+            <div class="name">Ortodoncia<br>Invisalign™</div>
+            <div class="desc">Alinea tus dientes de forma discreta y efectiva</div>
+          </div>
+          <div class="cell piece"></div>
+          <div class="cell">4.390,00</div>
+          <div class="cell">-219,50</div>
+          <div class="total">4.170,50</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
-          <div class="cell">13</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
+        <div class="item" onclick="openDetail('carillas.png')">
+          <div class="sprite i-cari"></div>
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="cell piece">13</div>
+          <div class="cell">700,00</div>
+          <div class="cell">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
-          <div class="cell">12</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
+        <div class="item" onclick="openDetail('carillas.png')">
+          <div class="sprite i-cari"></div>
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="cell piece">12</div>
+          <div class="cell">700,00</div>
+          <div class="cell">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
-          <div class="cell">11</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
+        <div class="item" onclick="openDetail('carillas.png')">
+          <div class="sprite i-cari"></div>
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="cell piece">11</div>
+          <div class="cell">700,00</div>
+          <div class="cell">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
-          <div class="cell">21</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
+        <div class="item" onclick="openDetail('carillas.png')">
+          <div class="sprite i-cari"></div>
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="cell piece">21</div>
+          <div class="cell">700,00</div>
+          <div class="cell">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
-          <div class="cell">22</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
+        <div class="item" onclick="openDetail('carillas.png')">
+          <div class="sprite i-cari"></div>
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="cell piece">22</div>
+          <div class="cell">700,00</div>
+          <div class="cell">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
-          <div class="cell">23</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
+        <div class="item" onclick="openDetail('carillas.png')">
+          <div class="sprite i-cari"></div>
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="cell piece">23</div>
+          <div class="cell">700,00</div>
+          <div class="cell">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('ferula.png')">
-          <div class="concept"><img class="icon" src="ferula.png" /><div class="concept-text"><div class="title">Férula descarga</div><div class="desc">Evita el desgaste dental y reduce la tensión mandibular acumulada durante el descanso.</div></div></div>
-          <div class="cell"></div><div class="cell">495,00</div><div class="cell">-24,75</div><div class="cell total">470,25 ›</div>
+        <div class="item" onclick="openDetail('ferula.png')">
+          <div class="sprite i-ferula"></div>
+          <div>
+            <div class="name">Ferula<br>descarga</div>
+            <div class="desc">Evita el desgaste dental y reduce la tensión mandibular acumulada durante el descanso.</div>
+          </div>
+          <div class="cell piece"></div>
+          <div class="cell">495,00</div>
+          <div class="cell">-24,75</div>
+          <div class="total">470,25</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('essix.png')">
-          <div class="concept"><img class="icon" src="essix.png" /><div class="concept-text"><div class="title">Essix contención</div><div class="desc">Mantiene tus dientes en su nueva posición tras el tratamiento de ortodoncia</div></div></div>
-          <div class="cell"></div><div class="cell">110,00</div><div class="cell">-5,50</div><div class="cell total">104,50 ›</div>
+        <div class="item" onclick="openDetail('essix.png')">
+          <div class="sprite i-essix"></div>
+          <div>
+            <div class="name">Essix<br>contención</div>
+            <div class="desc">Mantiene tus dientes en su nueva posición tras el tratamiento de ortodoncia</div>
+          </div>
+          <div class="cell piece"></div>
+          <div class="cell">110,00</div>
+          <div class="cell">-5,50</div>
+          <div class="total">104,50</div>
+          <div class="chev">›</div>
         </div>
 
-        <div class="row" onclick="openDetail('retainer.png')">
-          <div class="concept"><img class="icon" src="retainer.png" /><div class="concept-text"><div class="title">Ferulización ortodoncia</div><div class="desc">Fija los dientes para evitar movimientos indeseados tras la ortodoncia.</div></div></div>
-          <div class="cell"></div><div class="cell">495,00</div><div class="cell">-24,75</div><div class="cell total">470,25 ›</div>
+        <div class="item" onclick="openDetail('retainer.png')">
+          <div class="sprite i-retainer"></div>
+          <div>
+            <div class="name">Ferulización<br>ortodoncia</div>
+            <div class="desc">Fija los dientes para evitar movimientos indeseados tras la ortodoncia.</div>
+          </div>
+          <div class="cell piece"></div>
+          <div class="cell">495,00</div>
+          <div class="cell">-24,75</div>
+          <div class="total">470,25</div>
+          <div class="chev">›</div>
         </div>
 
       </div>
     </section>
 
+    <!-- 06 TIMELINE -->
     <section id="timeline" class="screen">
-      <button class="back-btn" onclick="goHome()">← Volver</button>
+      <button class="back" onclick="goBack()">← Volver</button>
       <img class="screen-img" src="06 - Plan tratamiento.png" />
     </section>
 
   </div>
 
+  <!-- DETAIL -->
   <div id="detail" class="detail-view">
-    <button class="back-btn" onclick="backToDesglose()">← Volver</button>
+    <button class="back" onclick="goBack()">← Volver</button>
     <img id="detail-img" class="detail-img" src="" />
   </div>
 
   <script>
-    const screens = {
-      home: document.getElementById("home"),
-      desglose: document.getElementById("desglose"),
-      timeline: document.getElementById("timeline")
-    };
-
-    const detail = document.getElementById("detail");
-    const detailImg = document.getElementById("detail-img");
-
     let currentScreen = "home";
-    history.replaceState({ view: "home" }, "");
+    history.replaceState({ screen: "home" }, "");
 
-    function showScreen(name, push = true) {
-      Object.values(screens).forEach(screen => screen.classList.remove("active"));
-      detail.classList.remove("active");
-      screens[name].classList.add("active");
-      currentScreen = name;
+    function showScreen(id, push = true) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      closeDetail(false);
+      currentScreen = id;
       window.scrollTo(0, 0);
-      if (push) history.pushState({ view: name }, "");
+      if (push) history.pushState({ screen: id }, "");
     }
-
-    function goHome() { showScreen("home"); }
 
     function openDetail(src, push = true) {
-      detailImg.src = src;
-      detail.classList.add("active");
-      if (push) history.pushState({ view: "detail", from: currentScreen, src: src }, "");
+      document.getElementById("detail-img").src = src;
+      document.getElementById("detail").classList.add("active");
+      if (push) history.pushState({ screen: currentScreen, detail: src }, "");
     }
 
-    function backToDesglose() {
-      detail.classList.remove("active");
-      detailImg.src = "";
-      showScreen("desglose");
+    function closeDetail(clear = true) {
+      document.getElementById("detail").classList.remove("active");
+      if (clear) document.getElementById("detail-img").src = "";
+    }
+
+    function goBack() {
+      history.back();
     }
 
     window.addEventListener("popstate", function(event) {
-      const state = event.state || { view: "home" };
+      const state = event.state || { screen: "home" };
 
-      if (state.view === "detail") {
-        showScreen(state.from || "desglose", false);
-        openDetail(state.src, false);
+      if (state.detail) {
+        showScreen(state.screen, false);
+        openDetail(state.detail, false);
         return;
       }
 
-      detail.classList.remove("active");
-      detailImg.src = "";
-
-      if (state.view && screens[state.view]) {
-        showScreen(state.view, false);
-      } else {
-        showScreen("home", false);
-      }
+      closeDetail();
+      showScreen(state.screen || "home", false);
     });
   </script>
 </body>
