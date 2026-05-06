@@ -11,10 +11,13 @@
   <meta property="og:type" content="website" />
 
   <style>
+    * { box-sizing: border-box; }
+
     html, body {
       margin: 0;
+      padding: 0;
       background: #f4f4f4;
-      font-family: Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       display: flex;
       justify-content: center;
       overscroll-behavior: none;
@@ -22,52 +25,61 @@
 
     .app {
       width: 100%;
-      max-width: 430px;
+      max-width: 414px;
       min-height: 100vh;
-      background: white;
+      background: #fff;
       position: relative;
       overflow-x: hidden;
     }
 
-    .screen { display: none; position: relative; }
+    .screen {
+      display: none;
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      background: #fff;
+    }
+
     .screen.active { display: block; }
 
-    .screen-img, .home-img {
+    .screen-img {
       width: 100%;
       display: block;
     }
 
     .hotspot {
       position: absolute;
+      z-index: 20;
       cursor: pointer;
       background: rgba(255,255,255,0);
-      z-index: 20;
     }
 
     .back {
       position: fixed;
       top: 10px;
-      left: calc(50% - 205px);
-      z-index: 90;
+      left: calc(50% - 197px);
+      z-index: 100;
       background: rgba(255,255,255,0.95);
       border: 1px solid #ddd;
       border-radius: 18px;
       padding: 7px 12px;
       font-size: 14px;
+      color: #111;
       cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    @media (max-width: 430px) {
+    @media (max-width: 414px) {
       .back { left: 10px; }
     }
 
-    /* HOME recortada para evitar blanco sobrante */
+    /* HOME */
     .home-frame {
       position: relative;
       width: 100%;
-      height: 1010px;
+      height: 896px;
       overflow: hidden;
-      background: white;
+      background: #fff;
     }
 
     .home-frame img {
@@ -75,49 +87,126 @@
       display: block;
     }
 
-    /* DESGLOSE: header fijo + lista scrollable */
-    .breakdown-fixed {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      background: white;
-      height: 392px;
+    /* DESGLOSE */
+    .breakdown-screen {
+      height: 100vh;
       overflow: hidden;
-      border-bottom: 1px solid #ddd;
+      background: #fff;
     }
 
-    .breakdown-fixed img {
+    .bd-fixed {
+      position: relative;
+      height: 391px;
+      overflow: hidden;
+      background: #fff;
+      z-index: 30;
+      border-bottom: 1px solid #d8d8d8;
+    }
+
+    .bd-fixed img {
       width: 100%;
       display: block;
     }
 
-    .breakdown-scroll {
-      position: relative;
-      height: calc(100vh - 392px);
+    .bd-list {
+      height: calc(100vh - 391px);
       overflow-y: auto;
       overflow-x: hidden;
-      background: white;
+      padding: 0 8px 18px 8px;
+      background: #fff;
     }
 
-    .breakdown-scroll-inner {
+    .item {
+      display: grid;
+      grid-template-columns: 54px 1fr 48px 58px 54px 16px;
+      column-gap: 2px;
+      align-items: center;
+      min-height: 74px;
+      border-bottom: 1px solid #cfcfcf;
+      background: #fff;
+      cursor: pointer;
       position: relative;
-      height: 1410px;
-      overflow: hidden;
     }
 
-    .breakdown-scroll-inner img {
-      width: 100%;
-      display: block;
-      transform: translateY(-392px);
+    .item.warning {
+      background: #ffe9bd;
+      border-radius: 8px;
+      border-bottom: none;
+      margin: 3px 0;
+      padding-right: 2px;
     }
 
-    /* DETALLE FULL SCREEN + ZOOM */
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid #222;
+      margin-left: 2px;
+    }
+
+    .name {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.05;
+      color: #222;
+    }
+
+    .desc {
+      font-size: 11px;
+      font-weight: 400;
+      line-height: 1.15;
+      color: #0a2b4d;
+      margin-top: 5px;
+    }
+
+    .warning .desc {
+      color: #f06f2c;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ffd993;
+      color: #f08a00;
+      font-size: 8px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 8px;
+      margin-bottom: 3px;
+    }
+
+    .num {
+      font-size: 14px;
+      text-align: right;
+      color: #222;
+      white-space: nowrap;
+    }
+
+    .total {
+      font-size: 14px;
+      font-weight: 700;
+      text-align: right;
+      color: #222;
+      white-space: nowrap;
+    }
+
+    .chev {
+      font-size: 24px;
+      color: #222;
+      text-align: center;
+    }
+
+    .empty {
+      color: transparent;
+    }
+
+    /* DETAIL */
     .detail-view {
       display: none;
       position: fixed;
       inset: 0;
-      background: white;
-      z-index: 70;
+      background: #fff;
+      z-index: 80;
       overflow: auto;
       touch-action: pan-x pan-y pinch-zoom;
     }
@@ -128,7 +217,7 @@
       width: 100%;
       max-width: none;
       display: block;
-      margin-top: 48px;
+      margin-top: 50px;
     }
   </style>
 </head>
@@ -136,79 +225,233 @@
 <body>
   <div class="app">
 
-    <!-- HOME -->
+    <!-- 02 HOME -->
     <section id="home" class="screen active">
       <div class="home-frame">
-        <img class="home-img" src="02 - Vista inicial.png" />
+        <img src="02 - Vista inicial.png" />
 
-        <!-- Resolver dudas por WhatsApp -->
+        <!-- WhatsApp -->
         <a class="hotspot"
-           style="left:50%; top:13.5%; width:47%; height:6.5%;"
+           style="left:50%; top:13.5%; width:47%; height:7%;"
            href="https://wa.me/"
            target="_blank"></a>
 
-        <!-- Ver plan paso a paso -->
+        <!-- Plan paso a paso -->
         <div class="hotspot"
-             style="left:50%; top:21.5%; width:47%; height:6.5%;"
+             style="left:50%; top:22%; width:47%; height:7%;"
              onclick="showScreen('timeline')"></div>
 
-        <!-- Ver coste desglosado -->
+        <!-- Coste desglosado -->
         <div class="hotspot"
-             style="left:50%; top:29.5%; width:47%; height:6.5%;"
+             style="left:50%; top:30.5%; width:47%; height:7%;"
              onclick="showScreen('breakdown')"></div>
 
-        <!-- Click en bloque desglose -->
+        <!-- Bloque desglose -->
         <div class="hotspot"
              style="left:0%; top:57%; width:100%; height:20%;"
              onclick="showScreen('breakdown')"></div>
 
         <!-- Ver desglose completo -->
         <div class="hotspot"
-             style="left:55%; top:60%; width:42%; height:6%;"
+             style="left:55%; top:59%; width:42%; height:5%;"
              onclick="showScreen('breakdown')"></div>
 
-        <!-- Click en timeline -->
+        <!-- Bloque timeline -->
         <div class="hotspot"
              style="left:0%; top:78%; width:100%; height:20%;"
              onclick="showScreen('timeline')"></div>
 
         <!-- Ver plan completo -->
         <div class="hotspot"
-             style="left:55%; top:79%; width:42%; height:6%;"
+             style="left:55%; top:79%; width:42%; height:5%;"
              onclick="showScreen('timeline')"></div>
       </div>
     </section>
 
-    <!-- DESGLOSE -->
-    <section id="breakdown" class="screen">
+    <!-- 03 DESGLOSE -->
+    <section id="breakdown" class="screen breakdown-screen">
       <button class="back" onclick="goBack()">← Volver</button>
 
-      <div class="breakdown-fixed">
+      <div class="bd-fixed">
         <img src="03 - Plan desglose.png" />
       </div>
 
-      <div class="breakdown-scroll">
-        <div class="breakdown-scroll-inner">
-          <img src="03 - Plan desglose.png" />
+      <div class="bd-list">
 
-          <div class="hotspot" style="left:0%; top:0px; width:100%; height:78px;" onclick="openDetail('multidisciplinar.png')"></div>
-          <div class="hotspot" style="left:0%; top:78px; width:100%; height:78px;" onclick="openDetail('gingivitis.png')"></div>
-          <div class="hotspot" style="left:0%; top:156px; width:100%; height:78px;" onclick="openDetail('sarpe.png')"></div>
-          <div class="hotspot" style="left:0%; top:234px; width:100%; height:78px;" onclick="openDetail('alineadores.png')"></div>
-          <div class="hotspot" style="left:0%; top:312px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
-          <div class="hotspot" style="left:0%; top:390px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
-          <div class="hotspot" style="left:0%; top:468px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
-          <div class="hotspot" style="left:0%; top:546px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
-          <div class="hotspot" style="left:0%; top:624px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
-          <div class="hotspot" style="left:0%; top:702px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
-          <div class="hotspot" style="left:0%; top:780px; width:100%; height:78px;" onclick="openDetail('ferula.png')"></div>
-          <div class="hotspot" style="left:0%; top:858px; width:100%; height:78px;" onclick="openDetail('essix.png')"></div>
-          <div class="hotspot" style="left:0%; top:936px; width:100%; height:90px;" onclick="openDetail('retainer.png')"></div>
+        <div class="item" onclick="openDetail('multidisciplinar.png')">
+          <img class="icon" src="multidisciplinar.png" />
+          <div>
+            <div class="name">Estudio<br>interdisciplinar</div>
+            <div class="desc">Adquisición de imágenes, diagnóstico y plan tratamiento</div>
+          </div>
+          <div class="num empty">|</div>
+          <div class="num">250,00</div>
+          <div class="num">-12,50</div>
+          <div class="total">237,50</div>
+          <div class="chev">›</div>
         </div>
+
+        <div class="item warning" onclick="openDetail('gingivitis.png')">
+          <img class="icon" src="gingivitis.png" />
+          <div>
+            <div class="badge">⚠ ATENCIÓN</div>
+            <div class="name">Tratamiento<br>gingivitis</div>
+            <div class="desc">Puede evolucionar a periodontitis si no se trata a tiempo</div>
+          </div>
+          <div class="num empty">|</div>
+          <div class="num">210,00</div>
+          <div class="num">-10,50</div>
+          <div class="total">199,50</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('sarpe.png')">
+          <img class="icon" src="sarpe.png" />
+          <div>
+            <div class="name">Tratamiento<br>funcional<br>complejo</div>
+            <div class="desc">Mejora de la mordida y función</div>
+          </div>
+          <div class="num empty">|</div>
+          <div class="num">3.000,00</div>
+          <div class="num">-150,00</div>
+          <div class="total">2.850,00</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('alineadores.png')">
+          <img class="icon" src="alineadores.png" />
+          <div>
+            <div class="name">Ortodoncia<br>Invisalign™</div>
+            <div class="desc">Alinea tus dientes de forma discreta y efectiva</div>
+          </div>
+          <div class="num empty">|</div>
+          <div class="num">4.390,00</div>
+          <div class="num">-219,50</div>
+          <div class="total">4.170,50</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('carillas.png')">
+          <img class="icon" src="carillas.png" />
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="num">13</div>
+          <div class="num">700,00</div>
+          <div class="num">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('carillas.png')">
+          <img class="icon" src="carillas.png" />
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="num">12</div>
+          <div class="num">700,00</div>
+          <div class="num">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('carillas.png')">
+          <img class="icon" src="carillas.png" />
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="num">11</div>
+          <div class="num">700,00</div>
+          <div class="num">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('carillas.png')">
+          <img class="icon" src="carillas.png" />
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="num">21</div>
+          <div class="num">700,00</div>
+          <div class="num">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('carillas.png')">
+          <img class="icon" src="carillas.png" />
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="num">22</div>
+          <div class="num">700,00</div>
+          <div class="num">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('carillas.png')">
+          <img class="icon" src="carillas.png" />
+          <div>
+            <div class="name">Carillas<br>porcelanas<br>especiales</div>
+            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
+          </div>
+          <div class="num">23</div>
+          <div class="num">700,00</div>
+          <div class="num">-35,00</div>
+          <div class="total">665,00</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('ferula.png')">
+          <img class="icon" src="ferula.png" />
+          <div>
+            <div class="name">Ferula<br>descarga</div>
+            <div class="desc">Evita el desgaste dental y reduce la tensión mandibular acumulada durante el descanso.</div>
+          </div>
+          <div class="num empty">|</div>
+          <div class="num">495,00</div>
+          <div class="num">-24,75</div>
+          <div class="total">470,25</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('essix.png')">
+          <img class="icon" src="essix.png" />
+          <div>
+            <div class="name">Essix<br>contención</div>
+            <div class="desc">Mantiene tus dientes en su nueva posición tras el tratamiento de ortodoncia</div>
+          </div>
+          <div class="num empty">|</div>
+          <div class="num">110,00</div>
+          <div class="num">-5,50</div>
+          <div class="total">104,50</div>
+          <div class="chev">›</div>
+        </div>
+
+        <div class="item" onclick="openDetail('retainer.png')">
+          <img class="icon" src="retainer.png" />
+          <div>
+            <div class="name">Ferulización<br>ortodoncia</div>
+            <div class="desc">Fija los dientes para evitar movimientos indeseados tras la ortodoncia.</div>
+          </div>
+          <div class="num empty">|</div>
+          <div class="num">495,00</div>
+          <div class="num">-24,75</div>
+          <div class="total">470,25</div>
+          <div class="chev">›</div>
+        </div>
+
       </div>
     </section>
 
-    <!-- TIMELINE -->
+    <!-- 06 TIMELINE -->
     <section id="timeline" class="screen">
       <button class="back" onclick="goBack()">← Volver</button>
       <img class="screen-img" src="06 - Plan tratamiento.png" />
@@ -216,7 +459,7 @@
 
   </div>
 
-  <!-- DETALLE EXPANDIDO -->
+  <!-- DETAIL -->
   <div id="detail" class="detail-view">
     <button class="back" onclick="goBack()">← Volver</button>
     <img id="detail-img" class="detail-img" src="" />
@@ -234,18 +477,14 @@
       currentScreen = id;
       window.scrollTo(0, 0);
 
-      if (push) {
-        history.pushState({ screen: id }, "");
-      }
+      if (push) history.pushState({ screen: id }, "");
     }
 
     function openDetail(src, push = true) {
       document.getElementById("detail-img").src = src;
       document.getElementById("detail").classList.add("active");
 
-      if (push) {
-        history.pushState({ screen: currentScreen, detail: src }, "");
-      }
+      if (push) history.pushState({ screen: currentScreen, detail: src }, "");
     }
 
     function closeDetail(clear = true) {
