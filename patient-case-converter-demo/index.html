@@ -11,12 +11,13 @@
   <meta property="og:type" content="website" />
 
   <style>
-    body {
+    html, body {
       margin: 0;
       background: #f4f4f4;
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
+      overscroll-behavior: none;
     }
 
     .app {
@@ -28,21 +29,10 @@
       overflow-x: hidden;
     }
 
-    .screen {
-      display: none;
-      position: relative;
-    }
+    .screen { display: none; position: relative; }
+    .screen.active { display: block; }
 
-    .screen.active {
-      display: block;
-    }
-
-    .screen-img {
-      width: 100%;
-      display: block;
-    }
-
-    .home-img {
+    .screen-img, .home-img {
       width: 100%;
       display: block;
     }
@@ -58,7 +48,7 @@
       position: fixed;
       top: 10px;
       left: calc(50% - 205px);
-      z-index: 80;
+      z-index: 90;
       background: rgba(255,255,255,0.95);
       border: 1px solid #ddd;
       border-radius: 18px;
@@ -71,13 +61,27 @@
       .back { left: 10px; }
     }
 
-    /* DESGLOSE CON HEADER FIJO */
+    /* HOME recortada para evitar blanco sobrante */
+    .home-frame {
+      position: relative;
+      width: 100%;
+      height: 1010px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .home-frame img {
+      width: 100%;
+      display: block;
+    }
+
+    /* DESGLOSE: header fijo + lista scrollable */
     .breakdown-fixed {
       position: sticky;
       top: 0;
       z-index: 30;
       background: white;
-      height: 355px;
+      height: 392px;
       overflow: hidden;
       border-bottom: 1px solid #ddd;
     }
@@ -89,7 +93,7 @@
 
     .breakdown-scroll {
       position: relative;
-      height: calc(100vh - 355px);
+      height: calc(100vh - 392px);
       overflow-y: auto;
       overflow-x: hidden;
       background: white;
@@ -97,30 +101,28 @@
 
     .breakdown-scroll-inner {
       position: relative;
-      height: 760px;
+      height: 1410px;
       overflow: hidden;
     }
 
     .breakdown-scroll-inner img {
       width: 100%;
       display: block;
-      transform: translateY(-350px);
+      transform: translateY(-392px);
     }
 
-    /* DETALLE EXPANDIDO */
+    /* DETALLE FULL SCREEN + ZOOM */
     .detail-view {
       display: none;
       position: fixed;
       inset: 0;
       background: white;
-      z-index: 60;
+      z-index: 70;
       overflow: auto;
       touch-action: pan-x pan-y pinch-zoom;
     }
 
-    .detail-view.active {
-      display: block;
-    }
+    .detail-view.active { display: block; }
 
     .detail-img {
       width: 100%;
@@ -136,28 +138,43 @@
 
     <!-- HOME -->
     <section id="home" class="screen active">
-      <div style="position:relative;">
+      <div class="home-frame">
         <img class="home-img" src="02 - Vista inicial.png" />
 
+        <!-- Resolver dudas por WhatsApp -->
         <a class="hotspot"
-           style="left:50%; top:12%; width:46%; height:9%;"
+           style="left:50%; top:13.5%; width:47%; height:6.5%;"
            href="https://wa.me/"
            target="_blank"></a>
 
+        <!-- Ver plan paso a paso -->
         <div class="hotspot"
-             style="left:50%; top:22%; width:46%; height:9%;"
+             style="left:50%; top:21.5%; width:47%; height:6.5%;"
              onclick="showScreen('timeline')"></div>
 
+        <!-- Ver coste desglosado -->
         <div class="hotspot"
-             style="left:50%; top:32%; width:46%; height:9%;"
+             style="left:50%; top:29.5%; width:47%; height:6.5%;"
              onclick="showScreen('breakdown')"></div>
 
+        <!-- Click en bloque desglose -->
         <div class="hotspot"
-             style="left:0%; top:52%; width:100%; height:28%;"
+             style="left:0%; top:57%; width:100%; height:20%;"
              onclick="showScreen('breakdown')"></div>
 
+        <!-- Ver desglose completo -->
         <div class="hotspot"
-             style="left:0%; top:80%; width:100%; height:20%;"
+             style="left:55%; top:60%; width:42%; height:6%;"
+             onclick="showScreen('breakdown')"></div>
+
+        <!-- Click en timeline -->
+        <div class="hotspot"
+             style="left:0%; top:78%; width:100%; height:20%;"
+             onclick="showScreen('timeline')"></div>
+
+        <!-- Ver plan completo -->
+        <div class="hotspot"
+             style="left:55%; top:79%; width:42%; height:6%;"
              onclick="showScreen('timeline')"></div>
       </div>
     </section>
@@ -174,16 +191,19 @@
         <div class="breakdown-scroll-inner">
           <img src="03 - Plan desglose.png" />
 
-          <div class="hotspot" style="left:0%; top:4%; width:100%; height:8%;" onclick="openDetail('multidisciplinar.png')"></div>
-          <div class="hotspot" style="left:0%; top:13%; width:100%; height:8%;" onclick="openDetail('gingivitis.png')"></div>
-          <div class="hotspot" style="left:0%; top:22%; width:100%; height:8%;" onclick="openDetail('sarpe.png')"></div>
-          <div class="hotspot" style="left:0%; top:31%; width:100%; height:8%;" onclick="openDetail('alineadores.png')"></div>
-          <div class="hotspot" style="left:0%; top:40%; width:100%; height:8%;" onclick="openDetail('carillas.png')"></div>
-          <div class="hotspot" style="left:0%; top:49%; width:100%; height:8%;" onclick="openDetail('carillas.png')"></div>
-          <div class="hotspot" style="left:0%; top:58%; width:100%; height:8%;" onclick="openDetail('carillas.png')"></div>
-          <div class="hotspot" style="left:0%; top:67%; width:100%; height:8%;" onclick="openDetail('ferula.png')"></div>
-          <div class="hotspot" style="left:0%; top:76%; width:100%; height:8%;" onclick="openDetail('essix.png')"></div>
-          <div class="hotspot" style="left:0%; top:85%; width:100%; height:8%;" onclick="openDetail('retainer.png')"></div>
+          <div class="hotspot" style="left:0%; top:0px; width:100%; height:78px;" onclick="openDetail('multidisciplinar.png')"></div>
+          <div class="hotspot" style="left:0%; top:78px; width:100%; height:78px;" onclick="openDetail('gingivitis.png')"></div>
+          <div class="hotspot" style="left:0%; top:156px; width:100%; height:78px;" onclick="openDetail('sarpe.png')"></div>
+          <div class="hotspot" style="left:0%; top:234px; width:100%; height:78px;" onclick="openDetail('alineadores.png')"></div>
+          <div class="hotspot" style="left:0%; top:312px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
+          <div class="hotspot" style="left:0%; top:390px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
+          <div class="hotspot" style="left:0%; top:468px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
+          <div class="hotspot" style="left:0%; top:546px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
+          <div class="hotspot" style="left:0%; top:624px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
+          <div class="hotspot" style="left:0%; top:702px; width:100%; height:78px;" onclick="openDetail('carillas.png')"></div>
+          <div class="hotspot" style="left:0%; top:780px; width:100%; height:78px;" onclick="openDetail('ferula.png')"></div>
+          <div class="hotspot" style="left:0%; top:858px; width:100%; height:78px;" onclick="openDetail('essix.png')"></div>
+          <div class="hotspot" style="left:0%; top:936px; width:100%; height:90px;" onclick="openDetail('retainer.png')"></div>
         </div>
       </div>
     </section>
@@ -196,7 +216,7 @@
 
   </div>
 
-  <!-- DETALLE -->
+  <!-- DETALLE EXPANDIDO -->
   <div id="detail" class="detail-view">
     <button class="back" onclick="goBack()">← Volver</button>
     <img id="detail-img" class="detail-img" src="" />
@@ -210,7 +230,7 @@
     function showScreen(id, push = true) {
       document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
       document.getElementById(id).classList.add("active");
-      document.getElementById("detail").classList.remove("active");
+      closeDetail(false);
       currentScreen = id;
       window.scrollTo(0, 0);
 
@@ -228,9 +248,9 @@
       }
     }
 
-    function closeDetail() {
+    function closeDetail(clear = true) {
       document.getElementById("detail").classList.remove("active");
-      document.getElementById("detail-img").src = "";
+      if (clear) document.getElementById("detail-img").src = "";
     }
 
     function goBack() {
