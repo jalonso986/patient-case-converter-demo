@@ -11,15 +11,9 @@
   <meta property="og:type" content="website" />
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
-      margin: 0;
-      padding: 0;
       background: #efefef;
       font-family: Arial, Helvetica, sans-serif;
       color: #1b1b1b;
@@ -44,9 +38,7 @@
       position: relative;
     }
 
-    .screen.active {
-      display: block;
-    }
+    .screen.active { display: block; }
 
     .hotspot {
       position: absolute;
@@ -68,7 +60,6 @@
       display: block;
     }
 
-    /* DESGLOSE: only flex when active */
     #desglose.active {
       display: flex;
       flex-direction: column;
@@ -78,7 +69,9 @@
     }
 
     .top-fixed {
-      flex: 0 0 auto;
+      flex: 0 0 362px;
+      height: 362px;
+      overflow: hidden;
       background: #fff;
     }
 
@@ -104,9 +97,7 @@
       white-space: nowrap;
     }
 
-    .native-header div:first-child {
-      text-align: left;
-    }
+    .native-header div:first-child { text-align: left; }
 
     .list-scroll {
       flex: 1 1 auto;
@@ -152,9 +143,7 @@
       display: block;
     }
 
-    .concept-text {
-      min-width: 0;
-    }
+    .concept-text { min-width: 0; }
 
     .title {
       font-weight: 700;
@@ -170,9 +159,7 @@
       color: #23354b;
     }
 
-    .row.warn .desc {
-      color: #d57b43;
-    }
+    .row.warn .desc { color: #d57b43; }
 
     .badge {
       display: inline-block;
@@ -219,9 +206,7 @@
     }
 
     @media (max-width: 414px) {
-      .back-btn {
-        left: 12px;
-      }
+      .back-btn { left: 12px; }
     }
 
     .detail-view {
@@ -234,9 +219,7 @@
       touch-action: pan-x pan-y pinch-zoom;
     }
 
-    .detail-view.active {
-      display: block;
-    }
+    .detail-view.active { display: block; }
 
     .detail-img {
       width: 100%;
@@ -250,43 +233,20 @@
 <body>
   <div class="app">
 
-    <!-- 02 HOME -->
     <section id="home" class="screen active">
       <div class="home-frame">
         <img src="02 - Vista inicial.png" />
 
-        <a class="hotspot"
-           style="left:50%; top:13.5%; width:47%; height:7%;"
-           href="https://wa.me/"
-           target="_blank"></a>
-
-        <div class="hotspot"
-             style="left:50%; top:22%; width:47%; height:7%;"
-             onclick="showScreen('timeline')"></div>
-
-        <div class="hotspot"
-             style="left:50%; top:30.5%; width:47%; height:7%;"
-             onclick="showScreen('desglose')"></div>
-
-        <div class="hotspot"
-             style="left:0%; top:57%; width:100%; height:20%;"
-             onclick="showScreen('desglose')"></div>
-
-        <div class="hotspot"
-             style="left:55%; top:59%; width:42%; height:5%;"
-             onclick="showScreen('desglose')"></div>
-
-        <div class="hotspot"
-             style="left:0%; top:78%; width:100%; height:20%;"
-             onclick="showScreen('timeline')"></div>
-
-        <div class="hotspot"
-             style="left:55%; top:79%; width:42%; height:5%;"
-             onclick="showScreen('timeline')"></div>
+        <a class="hotspot" style="left:50%; top:13.5%; width:47%; height:7%;" href="https://wa.me/" target="_blank"></a>
+        <div class="hotspot" style="left:50%; top:22%; width:47%; height:7%;" onclick="showScreen('timeline')"></div>
+        <div class="hotspot" style="left:50%; top:30.5%; width:47%; height:7%;" onclick="showScreen('desglose')"></div>
+        <div class="hotspot" style="left:0%; top:57%; width:100%; height:20%;" onclick="showScreen('desglose')"></div>
+        <div class="hotspot" style="left:55%; top:59%; width:42%; height:5%;" onclick="showScreen('desglose')"></div>
+        <div class="hotspot" style="left:0%; top:78%; width:100%; height:20%;" onclick="showScreen('timeline')"></div>
+        <div class="hotspot" style="left:55%; top:79%; width:42%; height:5%;" onclick="showScreen('timeline')"></div>
       </div>
     </section>
 
-    <!-- 03 DESGLOSE -->
     <section id="desglose" class="screen">
       <button class="back-btn" onclick="goHome()">← Volver</button>
 
@@ -305,192 +265,73 @@
       <div class="list-scroll">
 
         <div class="row" onclick="openDetail('multidisciplinar.png')">
-          <div class="concept">
-            <img class="icon" src="multidisciplinar.png" />
-            <div class="concept-text">
-              <div class="title">Estudio interdisciplinar</div>
-              <div class="desc">Adquisición de imágenes, diagnóstico y plan tratamiento</div>
-            </div>
-          </div>
-          <div class="cell"></div>
-          <div class="cell">250,00</div>
-          <div class="cell">-12,50</div>
-          <div class="cell total">237,50 ›</div>
+          <div class="concept"><img class="icon" src="multidisciplinar.png" /><div class="concept-text"><div class="title">Estudio interdisciplinar</div><div class="desc">Adquisición de imágenes, diagnóstico y plan tratamiento</div></div></div>
+          <div class="cell"></div><div class="cell">250,00</div><div class="cell">-12,50</div><div class="cell total">237,50 ›</div>
         </div>
 
         <div class="row warn" onclick="openDetail('gingivitis.png')">
-          <div class="concept">
-            <img class="icon" src="gingivitis.png" />
-            <div class="concept-text">
-              <div class="badge">⚠ ATENCIÓN</div>
-              <div class="title">Tratamiento gingivitis</div>
-              <div class="desc">Puede evolucionar a periodontitis si no se trata a tiempo</div>
-            </div>
-          </div>
-          <div class="cell"></div>
-          <div class="cell">210,00</div>
-          <div class="cell">-10,50</div>
-          <div class="cell total">199,50 ›</div>
+          <div class="concept"><img class="icon" src="gingivitis.png" /><div class="concept-text"><div class="badge">⚠ ATENCIÓN</div><div class="title">Tratamiento gingivitis</div><div class="desc">Puede evolucionar a periodontitis si no se trata a tiempo</div></div></div>
+          <div class="cell"></div><div class="cell">210,00</div><div class="cell">-10,50</div><div class="cell total">199,50 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('sarpe.png')">
-          <div class="concept">
-            <img class="icon" src="sarpe.png" />
-            <div class="concept-text">
-              <div class="title">Tratamiento funcional complejo</div>
-              <div class="desc">Mejora de la mordida y función</div>
-            </div>
-          </div>
-          <div class="cell"></div>
-          <div class="cell">3.000,00</div>
-          <div class="cell">-150,00</div>
-          <div class="cell total">2.850,00 ›</div>
+          <div class="concept"><img class="icon" src="sarpe.png" /><div class="concept-text"><div class="title">Tratamiento funcional complejo</div><div class="desc">Mejora de la mordida y función</div></div></div>
+          <div class="cell"></div><div class="cell">3.000,00</div><div class="cell">-150,00</div><div class="cell total">2.850,00 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('alineadores.png')">
-          <div class="concept">
-            <img class="icon" src="alineadores.png" />
-            <div class="concept-text">
-              <div class="title">Ortodoncia Invisalign™</div>
-              <div class="desc">Alinea tus dientes de forma discreta y efectiva</div>
-            </div>
-          </div>
-          <div class="cell"></div>
-          <div class="cell">4.390,00</div>
-          <div class="cell">-219,50</div>
-          <div class="cell total">4.170,50 ›</div>
+          <div class="concept"><img class="icon" src="alineadores.png" /><div class="concept-text"><div class="title">Ortodoncia Invisalign™</div><div class="desc">Alinea tus dientes de forma discreta y efectiva</div></div></div>
+          <div class="cell"></div><div class="cell">4.390,00</div><div class="cell">-219,50</div><div class="cell total">4.170,50 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept">
-            <img class="icon" src="carillas.png" />
-            <div class="concept-text">
-              <div class="title">Carillas porcelanas especiales</div>
-              <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-            </div>
-          </div>
-          <div class="cell">13</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="cell total">665,00 ›</div>
+          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
+          <div class="cell">13</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept">
-            <img class="icon" src="carillas.png" />
-            <div class="concept-text">
-              <div class="title">Carillas porcelanas especiales</div>
-              <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-            </div>
-          </div>
-          <div class="cell">12</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="cell total">665,00 ›</div>
+          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
+          <div class="cell">12</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept">
-            <img class="icon" src="carillas.png" />
-            <div class="concept-text">
-              <div class="title">Carillas porcelanas especiales</div>
-              <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-            </div>
-          </div>
-          <div class="cell">11</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="cell total">665,00 ›</div>
+          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
+          <div class="cell">11</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept">
-            <img class="icon" src="carillas.png" />
-            <div class="concept-text">
-              <div class="title">Carillas porcelanas especiales</div>
-              <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-            </div>
-          </div>
-          <div class="cell">21</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="cell total">665,00 ›</div>
+          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
+          <div class="cell">21</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept">
-            <img class="icon" src="carillas.png" />
-            <div class="concept-text">
-              <div class="title">Carillas porcelanas especiales</div>
-              <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-            </div>
-          </div>
-          <div class="cell">22</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="cell total">665,00 ›</div>
+          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
+          <div class="cell">22</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('carillas.png')">
-          <div class="concept">
-            <img class="icon" src="carillas.png" />
-            <div class="concept-text">
-              <div class="title">Carillas porcelanas especiales</div>
-              <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-            </div>
-          </div>
-          <div class="cell">23</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="cell total">665,00 ›</div>
+          <div class="concept"><img class="icon" src="carillas.png" /><div class="concept-text"><div class="title">Carillas porcelanas especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div></div>
+          <div class="cell">23</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="cell total">665,00 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('ferula.png')">
-          <div class="concept">
-            <img class="icon" src="ferula.png" />
-            <div class="concept-text">
-              <div class="title">Férula descarga</div>
-              <div class="desc">Evita el desgaste dental y reduce la tensión mandibular acumulada durante el descanso.</div>
-            </div>
-          </div>
-          <div class="cell"></div>
-          <div class="cell">495,00</div>
-          <div class="cell">-24,75</div>
-          <div class="cell total">470,25 ›</div>
+          <div class="concept"><img class="icon" src="ferula.png" /><div class="concept-text"><div class="title">Férula descarga</div><div class="desc">Evita el desgaste dental y reduce la tensión mandibular acumulada durante el descanso.</div></div></div>
+          <div class="cell"></div><div class="cell">495,00</div><div class="cell">-24,75</div><div class="cell total">470,25 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('essix.png')">
-          <div class="concept">
-            <img class="icon" src="essix.png" />
-            <div class="concept-text">
-              <div class="title">Essix contención</div>
-              <div class="desc">Mantiene tus dientes en su nueva posición tras el tratamiento de ortodoncia</div>
-            </div>
-          </div>
-          <div class="cell"></div>
-          <div class="cell">110,00</div>
-          <div class="cell">-5,50</div>
-          <div class="cell total">104,50 ›</div>
+          <div class="concept"><img class="icon" src="essix.png" /><div class="concept-text"><div class="title">Essix contención</div><div class="desc">Mantiene tus dientes en su nueva posición tras el tratamiento de ortodoncia</div></div></div>
+          <div class="cell"></div><div class="cell">110,00</div><div class="cell">-5,50</div><div class="cell total">104,50 ›</div>
         </div>
 
         <div class="row" onclick="openDetail('retainer.png')">
-          <div class="concept">
-            <img class="icon" src="retainer.png" />
-            <div class="concept-text">
-              <div class="title">Ferulización ortodoncia</div>
-              <div class="desc">Fija los dientes para evitar movimientos indeseados tras la ortodoncia.</div>
-            </div>
-          </div>
-          <div class="cell"></div>
-          <div class="cell">495,00</div>
-          <div class="cell">-24,75</div>
-          <div class="cell total">470,25 ›</div>
+          <div class="concept"><img class="icon" src="retainer.png" /><div class="concept-text"><div class="title">Ferulización ortodoncia</div><div class="desc">Fija los dientes para evitar movimientos indeseados tras la ortodoncia.</div></div></div>
+          <div class="cell"></div><div class="cell">495,00</div><div class="cell">-24,75</div><div class="cell total">470,25 ›</div>
         </div>
 
       </div>
     </section>
 
-    <!-- 06 TIMELINE -->
     <section id="timeline" class="screen">
       <button class="back-btn" onclick="goHome()">← Volver</button>
       <img class="screen-img" src="06 - Plan tratamiento.png" />
@@ -498,7 +339,6 @@
 
   </div>
 
-  <!-- DETAIL -->
   <div id="detail" class="detail-view">
     <button class="back-btn" onclick="backToDesglose()">← Volver</button>
     <img id="detail-img" class="detail-img" src="" />
@@ -515,33 +355,23 @@
     const detailImg = document.getElementById("detail-img");
 
     let currentScreen = "home";
-
     history.replaceState({ view: "home" }, "");
 
     function showScreen(name, push = true) {
       Object.values(screens).forEach(screen => screen.classList.remove("active"));
       detail.classList.remove("active");
-
       screens[name].classList.add("active");
       currentScreen = name;
       window.scrollTo(0, 0);
-
-      if (push) {
-        history.pushState({ view: name }, "");
-      }
+      if (push) history.pushState({ view: name }, "");
     }
 
-    function goHome() {
-      showScreen("home");
-    }
+    function goHome() { showScreen("home"); }
 
     function openDetail(src, push = true) {
       detailImg.src = src;
       detail.classList.add("active");
-
-      if (push) {
-        history.pushState({ view: "detail", from: currentScreen, src: src }, "");
-      }
+      if (push) history.pushState({ view: "detail", from: currentScreen, src: src }, "");
     }
 
     function backToDesglose() {
