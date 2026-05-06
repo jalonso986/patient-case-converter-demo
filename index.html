@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Plan de tratamiento de Carla</title>
+
+  <meta property="og:title" content="Carla, tu sonrisa empieza aquí" />
+  <meta property="og:description" content="Tu plan de tratamiento personalizado, explicado paso a paso." />
+  <meta property="og:image" content="https://jalonso986.github.io/patient-case-converter-demo/patient-case-converter-demo/01%20-%20Preview%20Virtual%20Card%20Whatsapp.png" />
+  <meta property="og:type" content="website" />
+
+  <style>
+    body {
+      margin: 0;
+      background: #f4f4f4;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      background: white;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .screen {
+      display: none;
+      position: relative;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .screen-img {
+      width: 100%;
+      display: block;
+    }
+
+    .home-img {
+      width: 100%;
+      display: block;
+    }
+
+    .hotspot {
+      position: absolute;
+      cursor: pointer;
+      background: rgba(255,255,255,0);
+      z-index: 20;
+    }
+
+    .back {
+      position: fixed;
+      top: 10px;
+      left: calc(50% - 205px);
+      z-index: 80;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #ddd;
+      border-radius: 18px;
+      padding: 7px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 430px) {
+      .back { left: 10px; }
+    }
+
+    /* DESGLOSE CON HEADER FIJO */
+    .breakdown-fixed {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: white;
+      height: 355px;
+      overflow: hidden;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .breakdown-fixed img {
+      width: 100%;
+      display: block;
+    }
+
+    .breakdown-scroll {
+      position: relative;
+      height: calc(100vh - 355px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      background: white;
+    }
+
+    .breakdown-scroll-inner {
+      position: relative;
+      height: 760px;
+      overflow: hidden;
+    }
+
+    .breakdown-scroll-inner img {
+      width: 100%;
+      display: block;
+      transform: translateY(-350px);
+    }
+
+    /* DETALLE EXPANDIDO */
+    .detail-view {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: white;
+      z-index: 60;
+      overflow: auto;
+      touch-action: pan-x pan-y pinch-zoom;
+    }
+
+    .detail-view.active {
+      display: block;
+    }
+
+    .detail-img {
+      width: 100%;
+      max-width: none;
+      display: block;
+      margin-top: 48px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- HOME -->
+    <section id="home" class="screen active">
+      <div style="position:relative;">
+        <img class="home-img" src="02 - Vista inicial.png" />
+
+        <a class="hotspot"
+           style="left:50%; top:12%; width:46%; height:9%;"
+           href="https://wa.me/"
+           target="_blank"></a>
+
+        <div class="hotspot"
+             style="left:50%; top:22%; width:46%; height:9%;"
+             onclick="showScreen('timeline')"></div>
+
+        <div class="hotspot"
+             style="left:50%; top:32%; width:46%; height:9%;"
+             onclick="showScreen('breakdown')"></div>
+
+        <div class="hotspot"
+             style="left:0%; top:52%; width:100%; height:28%;"
+             onclick="showScreen('breakdown')"></div>
+
+        <div class="hotspot"
+             style="left:0%; top:80%; width:100%; height:20%;"
+             onclick="showScreen('timeline')"></div>
+      </div>
+    </section>
+
+    <!-- DESGLOSE -->
+    <section id="breakdown" class="screen">
+      <button class="back" onclick="goBack()">← Volver</button>
+
+      <div class="breakdown-fixed">
+        <img src="03 - Plan desglose.png" />
+      </div>
+
+      <div class="breakdown-scroll">
+        <div class="breakdown-scroll-inner">
+          <img src="03 - Plan desglose.png" />
+
+          <div class="hotspot" style="left:0%; top:4%; width:100%; height:8%;" onclick="openDetail('multidisciplinar.png')"></div>
+          <div class="hotspot" style="left:0%; top:13%; width:100%; height:8%;" onclick="openDetail('gingivitis.png')"></div>
+          <div class="hotspot" style="left:0%; top:22%; width:100%; height:8%;" onclick="openDetail('sarpe.png')"></div>
+          <div class="hotspot" style="left:0%; top:31%; width:100%; height:8%;" onclick="openDetail('alineadores.png')"></div>
+          <div class="hotspot" style="left:0%; top:40%; width:100%; height:8%;" onclick="openDetail('carillas.png')"></div>
+          <div class="hotspot" style="left:0%; top:49%; width:100%; height:8%;" onclick="openDetail('carillas.png')"></div>
+          <div class="hotspot" style="left:0%; top:58%; width:100%; height:8%;" onclick="openDetail('carillas.png')"></div>
+          <div class="hotspot" style="left:0%; top:67%; width:100%; height:8%;" onclick="openDetail('ferula.png')"></div>
+          <div class="hotspot" style="left:0%; top:76%; width:100%; height:8%;" onclick="openDetail('essix.png')"></div>
+          <div class="hotspot" style="left:0%; top:85%; width:100%; height:8%;" onclick="openDetail('retainer.png')"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="timeline" class="screen">
+      <button class="back" onclick="goBack()">← Volver</button>
+      <img class="screen-img" src="06 - Plan tratamiento.png" />
+    </section>
+
+  </div>
+
+  <!-- DETALLE -->
+  <div id="detail" class="detail-view">
+    <button class="back" onclick="goBack()">← Volver</button>
+    <img id="detail-img" class="detail-img" src="" />
+  </div>
+
+  <script>
+    let currentScreen = "home";
+
+    history.replaceState({ screen: "home" }, "");
+
+    function showScreen(id, push = true) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      document.getElementById("detail").classList.remove("active");
+      currentScreen = id;
+      window.scrollTo(0, 0);
+
+      if (push) {
+        history.pushState({ screen: id }, "");
+      }
+    }
+
+    function openDetail(src, push = true) {
+      document.getElementById("detail-img").src = src;
+      document.getElementById("detail").classList.add("active");
+
+      if (push) {
+        history.pushState({ screen: currentScreen, detail: src }, "");
+      }
+    }
+
+    function closeDetail() {
+      document.getElementById("detail").classList.remove("active");
+      document.getElementById("detail-img").src = "";
+    }
+
+    function goBack() {
+      history.back();
+    }
+
+    window.addEventListener("popstate", function(event) {
+      const state = event.state || { screen: "home" };
+
+      if (state.detail) {
+        showScreen(state.screen, false);
+        openDetail(state.detail, false);
+        return;
+      }
+
+      closeDetail();
+      showScreen(state.screen || "home", false);
+    });
+  </script>
+</body>
