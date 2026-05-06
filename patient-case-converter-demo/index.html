@@ -73,7 +73,6 @@
       .back { left: 10px; }
     }
 
-    /* HOME */
     .home-frame {
       position: relative;
       width: 100%;
@@ -87,7 +86,6 @@
       display: block;
     }
 
-    /* DESGLOSE */
     #breakdown.active {
       display: flex;
       flex-direction: column;
@@ -110,7 +108,7 @@
 
     .bd-column-header {
       display: grid;
-      grid-template-columns: 56px 112px 34px 62px 54px 58px 18px;
+      grid-template-columns: 64px 104px 34px 62px 54px 58px 18px;
       padding: 4px 8px 4px 8px;
       border-top: 1px solid #ddd;
       border-bottom: 1px solid #cfcfcf;
@@ -145,7 +143,7 @@
 
     .item {
       display: grid;
-      grid-template-columns: 56px 112px 34px 62px 54px 58px 18px;
+      grid-template-columns: 64px 104px 34px 62px 54px 58px 18px;
       align-items: center;
       min-height: 78px;
       border-bottom: 1px solid #cfcfcf;
@@ -169,7 +167,7 @@
       background-size: 414px auto;
       background-repeat: no-repeat;
       border: 1px solid #222;
-      margin-left: 8px;
+      margin-left: 14px;
       overflow: hidden;
     }
 
@@ -232,7 +230,6 @@
       text-align: center;
     }
 
-    /* DETAIL */
     .detail-view {
       display: none;
       position: fixed;
@@ -257,7 +254,6 @@
 <body>
   <div class="app">
 
-    <!-- 02 HOME -->
     <section id="home" class="screen active">
       <div class="home-frame">
         <img src="02 - Vista inicial.png" />
@@ -274,7 +270,6 @@
       </div>
     </section>
 
-    <!-- 03 DESGLOSE -->
     <section id="breakdown" class="screen">
       <button class="back" onclick="goBack()">← Volver</button>
 
@@ -295,178 +290,85 @@
 
         <div class="item" onclick="openDetail('multidisciplinar.png')">
           <div class="sprite i-multi"></div>
-          <div>
-            <div class="name">Estudio<br>interdisciplinar</div>
-            <div class="desc">Adquisición de imágenes, diagnóstico y plan tratamiento</div>
-          </div>
-          <div class="cell piece"></div>
-          <div class="cell">250,00</div>
-          <div class="cell">-12,50</div>
-          <div class="total">237,50</div>
-          <div class="chev">›</div>
+          <div><div class="name">Estudio<br>interdisciplinar</div><div class="desc">Adquisición de imágenes, diagnóstico y plan tratamiento</div></div>
+          <div class="cell piece"></div><div class="cell">250,00</div><div class="cell">-12,50</div><div class="total">237,50</div><div class="chev">›</div>
         </div>
 
         <div class="item warning" onclick="openDetail('gingivitis.png')">
           <div class="sprite i-gingi"></div>
-          <div>
-            <div class="badge">⚠ ATENCIÓN</div>
-            <div class="name">Tratamiento<br>gingivitis</div>
-            <div class="desc">Puede evolucionar a periodontitis si no se trata a tiempo</div>
-          </div>
-          <div class="cell piece"></div>
-          <div class="cell">210,00</div>
-          <div class="cell">-10,50</div>
-          <div class="total">199,50</div>
-          <div class="chev">›</div>
+          <div><div class="badge">⚠ ATENCIÓN</div><div class="name">Tratamiento<br>gingivitis</div><div class="desc">Puede evolucionar a periodontitis si no se trata a tiempo</div></div>
+          <div class="cell piece"></div><div class="cell">210,00</div><div class="cell">-10,50</div><div class="total">199,50</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('sarpe.png')">
           <div class="sprite i-sarpe"></div>
-          <div>
-            <div class="name">Tratamiento<br>funcional<br>complejo</div>
-            <div class="desc">Mejora de la mordida y función</div>
-          </div>
-          <div class="cell piece"></div>
-          <div class="cell">3.000,00</div>
-          <div class="cell">-150,00</div>
-          <div class="total">2.850,00</div>
-          <div class="chev">›</div>
+          <div><div class="name">Tratamiento<br>funcional<br>complejo</div><div class="desc">Mejora de la mordida y función</div></div>
+          <div class="cell piece"></div><div class="cell">3.000,00</div><div class="cell">-150,00</div><div class="total">2.850,00</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('alineadores.png')">
           <div class="sprite i-invis"></div>
-          <div>
-            <div class="name">Ortodoncia<br>Invisalign™</div>
-            <div class="desc">Alinea tus dientes de forma discreta y efectiva</div>
-          </div>
-          <div class="cell piece"></div>
-          <div class="cell">4.390,00</div>
-          <div class="cell">-219,50</div>
-          <div class="total">4.170,50</div>
-          <div class="chev">›</div>
+          <div><div class="name">Ortodoncia<br>Invisalign™</div><div class="desc">Alinea tus dientes de forma discreta y efectiva</div></div>
+          <div class="cell piece"></div><div class="cell">4.390,00</div><div class="cell">-219,50</div><div class="total">4.170,50</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('carillas.png')">
           <div class="sprite i-cari"></div>
-          <div>
-            <div class="name">Carillas<br>porcelanas<br>especiales</div>
-            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-          </div>
-          <div class="cell piece">13</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="total">665,00</div>
-          <div class="chev">›</div>
+          <div><div class="name">Carillas<br>porcelanas<br>especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div>
+          <div class="cell piece">13</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="total">665,00</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('carillas.png')">
           <div class="sprite i-cari"></div>
-          <div>
-            <div class="name">Carillas<br>porcelanas<br>especiales</div>
-            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-          </div>
-          <div class="cell piece">12</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="total">665,00</div>
-          <div class="chev">›</div>
+          <div><div class="name">Carillas<br>porcelanas<br>especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div>
+          <div class="cell piece">12</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="total">665,00</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('carillas.png')">
           <div class="sprite i-cari"></div>
-          <div>
-            <div class="name">Carillas<br>porcelanas<br>especiales</div>
-            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-          </div>
-          <div class="cell piece">11</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="total">665,00</div>
-          <div class="chev">›</div>
+          <div><div class="name">Carillas<br>porcelanas<br>especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div>
+          <div class="cell piece">11</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="total">665,00</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('carillas.png')">
           <div class="sprite i-cari"></div>
-          <div>
-            <div class="name">Carillas<br>porcelanas<br>especiales</div>
-            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-          </div>
-          <div class="cell piece">21</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="total">665,00</div>
-          <div class="chev">›</div>
+          <div><div class="name">Carillas<br>porcelanas<br>especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div>
+          <div class="cell piece">21</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="total">665,00</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('carillas.png')">
           <div class="sprite i-cari"></div>
-          <div>
-            <div class="name">Carillas<br>porcelanas<br>especiales</div>
-            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-          </div>
-          <div class="cell piece">22</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="total">665,00</div>
-          <div class="chev">›</div>
+          <div><div class="name">Carillas<br>porcelanas<br>especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div>
+          <div class="cell piece">22</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="total">665,00</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('carillas.png')">
           <div class="sprite i-cari"></div>
-          <div>
-            <div class="name">Carillas<br>porcelanas<br>especiales</div>
-            <div class="desc">Mejora forma y color con un resultado natural y duradero.</div>
-          </div>
-          <div class="cell piece">23</div>
-          <div class="cell">700,00</div>
-          <div class="cell">-35,00</div>
-          <div class="total">665,00</div>
-          <div class="chev">›</div>
+          <div><div class="name">Carillas<br>porcelanas<br>especiales</div><div class="desc">Mejora forma y color con un resultado natural y duradero.</div></div>
+          <div class="cell piece">23</div><div class="cell">700,00</div><div class="cell">-35,00</div><div class="total">665,00</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('ferula.png')">
           <div class="sprite i-ferula"></div>
-          <div>
-            <div class="name">Ferula<br>descarga</div>
-            <div class="desc">Evita el desgaste dental y reduce la tensión mandibular acumulada durante el descanso.</div>
-          </div>
-          <div class="cell piece"></div>
-          <div class="cell">495,00</div>
-          <div class="cell">-24,75</div>
-          <div class="total">470,25</div>
-          <div class="chev">›</div>
+          <div><div class="name">Ferula<br>descarga</div><div class="desc">Evita el desgaste dental y reduce la tensión mandibular acumulada durante el descanso.</div></div>
+          <div class="cell piece"></div><div class="cell">495,00</div><div class="cell">-24,75</div><div class="total">470,25</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('essix.png')">
           <div class="sprite i-essix"></div>
-          <div>
-            <div class="name">Essix<br>contención</div>
-            <div class="desc">Mantiene tus dientes en su nueva posición tras el tratamiento de ortodoncia</div>
-          </div>
-          <div class="cell piece"></div>
-          <div class="cell">110,00</div>
-          <div class="cell">-5,50</div>
-          <div class="total">104,50</div>
-          <div class="chev">›</div>
+          <div><div class="name">Essix<br>contención</div><div class="desc">Mantiene tus dientes en su nueva posición tras el tratamiento de ortodoncia</div></div>
+          <div class="cell piece"></div><div class="cell">110,00</div><div class="cell">-5,50</div><div class="total">104,50</div><div class="chev">›</div>
         </div>
 
         <div class="item" onclick="openDetail('retainer.png')">
           <div class="sprite i-retainer"></div>
-          <div>
-            <div class="name">Ferulización<br>ortodoncia</div>
-            <div class="desc">Fija los dientes para evitar movimientos indeseados tras la ortodoncia.</div>
-          </div>
-          <div class="cell piece"></div>
-          <div class="cell">495,00</div>
-          <div class="cell">-24,75</div>
-          <div class="total">470,25</div>
-          <div class="chev">›</div>
+          <div><div class="name">Ferulización<br>ortodoncia</div><div class="desc">Fija los dientes para evitar movimientos indeseados tras la ortodoncia.</div></div>
+          <div class="cell piece"></div><div class="cell">495,00</div><div class="cell">-24,75</div><div class="total">470,25</div><div class="chev">›</div>
         </div>
 
       </div>
     </section>
 
-    <!-- 06 TIMELINE -->
     <section id="timeline" class="screen">
       <button class="back" onclick="goBack()">← Volver</button>
       <img class="screen-img" src="06 - Plan tratamiento.png" />
@@ -474,7 +376,6 @@
 
   </div>
 
-  <!-- DETAIL -->
   <div id="detail" class="detail-view">
     <button class="back" onclick="goBack()">← Volver</button>
     <img id="detail-img" class="detail-img" src="" />
